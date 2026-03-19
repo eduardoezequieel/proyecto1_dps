@@ -1,9 +1,9 @@
 /** Layout raíz: fuentes, providers de tema y autenticación, script de tema inicial. */
 import type { Metadata } from 'next';
-import type { ReactNode } from 'react';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { AuthProvider } from '@/context/AuthContext';
+import { ThemeProvider } from '@/context/ThemeContext';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -13,13 +13,9 @@ export const metadata: Metadata = {
 };
 
 type RootLayoutProps = {
-  children: ReactNode;
+  children: React.ReactNode;
   params?: Promise<Record<string, string | string[]>>;
 };
-
-function ThemeProvider({ children }: { children: ReactNode }) {
-  return <>{children}</>;
-}
 
 export default async function RootLayout({ children, params }: RootLayoutProps) {
   if (params) await params;
