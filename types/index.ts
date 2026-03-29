@@ -1,9 +1,17 @@
 /** Tipos e interfaces compartidos de la aplicación. */
-export type Role = 'gerente' | 'usuario';
+export type Role = "gerente" | "usuario";
 
-export type ProjectStatus = 'planificacion' | 'en_progreso' | 'completado' | 'cancelado';
-export type TaskStatus = 'pendiente' | 'en_progreso' | 'completada' | 'cancelada';
-export type Priority = 'baja' | 'media' | 'alta';
+export type ProjectStatus =
+  | "planificacion"
+  | "en_progreso"
+  | "completado"
+  | "cancelado";
+export type TaskStatus =
+  | "pendiente"
+  | "en_progreso"
+  | "completada"
+  | "cancelada";
+export type Priority = "baja" | "media" | "alta";
 
 /** Usuario del sistema (password opcional una vez autenticado). */
 export interface User {
