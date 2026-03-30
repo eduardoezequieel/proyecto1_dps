@@ -1,5 +1,5 @@
 /** Hook para listar, crear, editar y eliminar proyectos (y sus tareas al eliminar). */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Project } from '@/types';
 import {
   getProjects,
@@ -15,9 +15,10 @@ export function useProjects() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchProjects = async () => {
+  const fetchProjects = useCallback(async () => {
     try {
       setIsLoading(true);
+      setError(null);
       const res = await getProjects();
       setProjects(res.data);
     } catch {
@@ -25,31 +26,28 @@ export function useProjects() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
-  useEffect(() => { fetchProjects(); }, []);
+  useEffect(() => { fetchProjects(); }, [fetchProjects]);
 
-  /** Crea un proyecto y lo añade a la lista. */
-  const addProject = async (project: Omit<Project, 'id' | 'createdAt'>) => {
+  const addProject = useCallback(async (project: Omit<Project, 'id' | 'createdAt'>) => {
     const res = await createProject(project);
     setProjects((prev) => [...prev, res.data]);
     return res.data;
-  };
+  }, []);
 
-  /** Actualiza un proyecto por id. */
-  const editProject = async (id: string, data: Partial<Project>) => {
+  const editProject = useCallback(async (id: string, data: Partial<Project>) => {
     const res = await updateProject(id, data);
     setProjects((prev) => prev.map((p) => (p.id === id ? res.data : p)));
     return res.data;
-  };
+  }, []);
 
-  /** Elimina el proyecto y todas sus tareas. */
-  const removeProject = async (id: string) => {
+  const removeProject = useCallback(async (id: string) => {
     const tasksResponse = await getTasksByProject(id);
     await Promise.all(tasksResponse.data.map((task) => deleteTask(task.id)));
     await deleteProject(id);
     setProjects((prev) => prev.filter((p) => p.id !== id));
-  };
+  }, []);
 
   return { projects, isLoading, error, refetch: fetchProjects, addProject, editProject, removeProject };
 }

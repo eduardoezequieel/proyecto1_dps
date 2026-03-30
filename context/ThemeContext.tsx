@@ -1,7 +1,7 @@
 'use client';
 
 /** Contexto de tema claro/oscuro; persiste en localStorage y aplica clase .dark al documento. */
-import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import React, { createContext, useEffect, useState, ReactNode } from 'react';
 
 interface ThemeContextType {
   theme: 'light' | 'dark';
@@ -19,16 +19,19 @@ function applyTheme(t: 'light' | 'dark') {
   }
 }
 
-export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+/** Lee el tema guardado en localStorage (solo en cliente). */
+function getStoredTheme(): 'light' | 'dark' {
+  if (typeof window === 'undefined') return 'light';
+  return (localStorage.getItem('theme') as 'light' | 'dark') ?? 'light';
+}
 
-  // Inicializa el tema desde localStorage al montar.
+export function ThemeProvider({ children }: { children: ReactNode }) {
+  const [theme, setTheme] = useState<'light' | 'dark'>(getStoredTheme);
+
+  // Aplica la clase al DOM cuando el tema cambia.
   useEffect(() => {
-    const stored = localStorage.getItem('theme') as 'light' | 'dark' | null;
-    const initial = stored ?? 'light';
-    setTheme(initial);
-    applyTheme(initial);
-  }, []);
+    applyTheme(theme);
+  }, [theme]);
 
   /** Alterna entre claro y oscuro; guarda en estado y localStorage. */
   const toggleTheme = () => {

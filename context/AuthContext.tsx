@@ -36,10 +36,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         (u) => u.email === email && u.password === password
       );
       if (foundUser) {
-        const { password: _, ...safeUser } = foundUser;
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { password: _pass, ...safeUser } = foundUser;
         setUser(safeUser as User);
         localStorage.setItem(STORAGE_KEY, JSON.stringify(safeUser));
-        document.cookie = `app_role=${safeUser.role}; path=/; SameSite=Lax`;
+        const secure = globalThis.location?.protocol === 'https:' ? '; Secure' : '';
+        document.cookie = `app_role=${safeUser.role}; path=/; SameSite=Lax${secure}`;
         return true;
       }
       return false;

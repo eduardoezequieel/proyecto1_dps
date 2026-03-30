@@ -5,30 +5,11 @@ import { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useTasks } from '@/hooks/useTasks';
 import { Task, TaskStatus } from '@/types';
-
-const statusColors: Record<TaskStatus, string> = {
-  pendiente: 'bg-gray-100 text-gray-700 dark:bg-gray-600 dark:text-gray-200',
-  en_progreso: 'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300',
-  completada: 'bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300',
-  cancelada: 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300',
-};
-
-const statusLabel: Record<TaskStatus, string> = {
-  pendiente: 'Pendiente',
-  en_progreso: 'En Progreso',
-  completada: 'Completada',
-  cancelada: 'Cancelada',
-};
-
-const priorityBadge: Record<string, string> = {
-  baja: 'bg-gray-100 text-gray-600 dark:bg-gray-600 dark:text-gray-200',
-  media: 'bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300',
-  alta: 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300',
-};
+import { TASK_STATUS_LABELS as statusLabel, PRIORITY_COLORS as priorityBadge } from '@/lib/constants';
 
 export default function MyTasksPage() {
   const { user } = useAuth();
-  const { tasks, isLoading, editTask } = useTasks(user?.id);
+  const { tasks, isLoading, error, refetch, editTask } = useTasks(user?.id);
   const [updatingId, setUpdatingId] = useState<string | null>(null);
 
   const handleStatusChange = async (task: Task, newStatus: TaskStatus) => {
@@ -55,6 +36,11 @@ export default function MyTasksPage() {
             {[...Array(3)].map((_, i) => (
               <div key={i} className="h-64 rounded-xl bg-gray-200 dark:bg-gray-700 animate-pulse" />
             ))}
+          </div>
+        ) : error ? (
+          <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-6 text-center">
+            <p className="text-red-700 dark:text-red-400 mb-3">{error}</p>
+            <button onClick={refetch} className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm font-medium">Reintentar</button>
           </div>
         ) : tasks.length === 0 ? (
           <div className="bg-white dark:bg-gray-800 rounded-xl shadow p-12 text-center">

@@ -45,3 +45,20 @@ export function swalWarning(title: string, text?: string) {
     ...getSwalTheme(),
   });
 }
+
+/** Muestra confirmación de borrado y devuelve true si el usuario confirma. */
+export async function swalConfirmDelete(title: string, text: string): Promise<boolean> {
+  const result = await Swal.fire({
+    title,
+    text,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, eliminar',
+    cancelButtonText: 'Cancelar',
+    confirmButtonColor: '#dc2626',
+    cancelButtonColor: '#6b7280',
+    reverseButtons: true,
+    ...getSwalTheme(),
+  });
+  return result.isConfirmed;
+}
