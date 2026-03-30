@@ -1,0 +1,142 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "Usuario Gerente",
+      "email": "usuario@gerente.com",
+      "password": "admin123",
+      "role": "gerente",
+      "avatar": "UG"
+    },
+    {
+      "id": "2",
+      "name": "Usuario Colaborador",
+      "email": "usuario@user.com",
+      "password": "admin123",
+      "role": "usuario",
+      "avatar": "UC"
+    }
+  ],
+  "projects": [
+    {
+      "id": "1",
+      "name": "Sistema de Inventario",
+      "description": "Desarrollo de un sistema para controlar el inventario de la empresa",
+      "status": "en_progreso",
+      "priority": "alta",
+      "managerId": "1",
+      "startDate": "2025-01-15",
+      "endDate": "2025-07-17",
+      "createdAt": "2025-01-10T00:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "name": "App Móvil de Ventas",
+      "description": "Aplicación móvil para el equipo de ventas con seguimiento en tiempo real",
+      "status": "planificacion",
+      "priority": "media",
+      "managerId": "1",
+      "startDate": "2025-03-01",
+      "endDate": "2025-09-30",
+      "createdAt": "2025-02-20T00:00:00.000Z"
+    },
+    {
+      "id": "3",
+      "name": "Portal de Clientes",
+      "description": "Portal web para que los clientes gestionen sus cuentas y pedidos",
+      "status": "completado",
+      "priority": "alta",
+      "managerId": "1",
+      "startDate": "2024-09-01",
+      "endDate": "2025-01-31",
+      "createdAt": "2024-08-15T00:00:00.000Z"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "1",
+      "title": "Diseño de base de datos",
+      "description": "Crear el esquema de base de datos para el sistema de inventario",
+      "status": "completada",
+      "priority": "alta",
+      "projectId": "1",
+      "assignedTo": "2",
+      "createdBy": "1",
+      "dueDate": "2025-02-15",
+      "createdAt": "2025-01-15T00:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "title": "Desarrollo de API REST",
+      "description": "Implementar los endpoints para la gestión de inventario",
+      "status": "completada",
+      "priority": "alta",
+      "projectId": "1",
+      "assignedTo": "2",
+      "createdBy": "1",
+      "dueDate": "2025-03-30",
+      "createdAt": "2025-01-20T00:00:00.000Z"
+    },
+    {
+      "id": "3",
+      "title": "Diseño UI/UX",
+      "description": "Crear los mockups y prototipos de la interfaz de usuario",
+      "status": "en_progreso",
+      "priority": "media",
+      "projectId": "1",
+      "assignedTo": "2",
+      "createdBy": "1",
+      "dueDate": "2025-03-15",
+      "createdAt": "2025-01-25T00:00:00.000Z"
+    },
+    {
+      "id": "4",
+      "title": "Investigación de mercado",
+      "description": "Analizar las necesidades del equipo de ventas",
+      "status": "completada",
+      "priority": "media",
+      "projectId": "2",
+      "assignedTo": "2",
+      "createdBy": "1",
+      "dueDate": "2025-03-20",
+      "createdAt": "2025-02-20T00:00:00.000Z"
+    },
+    {
+      "id": "5",
+      "title": "Configuración del entorno",
+      "description": "Configurar el entorno de desarrollo para la app móvil",
+      "status": "pendiente",
+      "priority": "alta",
+      "projectId": "2",
+      "assignedTo": "2",
+      "createdBy": "1",
+      "dueDate": "2025-03-10",
+      "createdAt": "2025-02-22T00:00:00.000Z"
+    },
+    {
+      "id": "6",
+      "title": "Testing y QA",
+      "description": "Realizar pruebas de calidad del portal de clientes",
+      "status": "completada",
+      "priority": "alta",
+      "projectId": "3",
+      "assignedTo": "2",
+      "createdBy": "1",
+      "dueDate": "2025-01-20",
+      "createdAt": "2024-12-01T00:00:00.000Z"
+    },
+    {
+      "id": "9f8c",
+      "title": "Esta es mi nueva tarea",
+      "description": "test",
+      "status": "pendiente",
+      "priority": "media",
+      "projectId": "1",
+      "assignedTo": "2",
+      "dueDate": "2026-03-15",
+      "createdBy": "1",
+      "createdAt": "2026-03-15T05:27:18.396Z"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
