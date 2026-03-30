@@ -11,7 +11,7 @@ interface SidebarProps {
   onToggle: () => void;
 }
 
-const ico = {
+const iconProps = {
   width: 20,
   height: 20,
   viewBox: '0 0 24 24',
@@ -23,20 +23,20 @@ const ico = {
 };
 
 const IconHome = () => (
-  <svg {...ico}>
+  <svg {...iconProps}>
     <path d="M3 11.5L12 4l9 7.5V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-8.5z" />
     <path d="M9.5 21V14h5v7" />
   </svg>
 );
 
 const IconFolder = () => (
-  <svg {...ico}>
+  <svg {...iconProps}>
     <path d="M3 7a2 2 0 0 1 2-2h3.5l2 2.5H19a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z" />
   </svg>
 );
 
 const IconClipboard = () => (
-  <svg {...ico}>
+  <svg {...iconProps}>
     <rect x="8" y="2" width="8" height="4" rx="1.5" />
     <path d="M16 3h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2" />
     <path d="M9 12h6M9 16h4" />
@@ -44,7 +44,7 @@ const IconClipboard = () => (
 );
 
 const IconClipboardCheck = () => (
-  <svg {...ico}>
+  <svg {...iconProps}>
     <rect x="8" y="2" width="8" height="4" rx="1.5" />
     <path d="M16 3h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2" />
     <path d="M9 12l2 2 4-4" />
@@ -52,7 +52,7 @@ const IconClipboardCheck = () => (
 );
 
 const IconUsers = () => (
-  <svg {...ico}>
+  <svg {...iconProps}>
     <path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2" />
     <circle cx="10" cy="7" r="4" />
     <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
@@ -61,20 +61,20 @@ const IconUsers = () => (
 );
 
 const IconSun = () => (
-  <svg {...ico}>
+  <svg {...iconProps}>
     <circle cx="12" cy="12" r="4.5" />
     <path d="M12 2v2.5M12 19.5V22M4.93 4.93l1.77 1.77M17.3 17.3l1.77 1.77M2 12h2.5M19.5 12H22M4.93 19.07l1.77-1.77M17.3 6.7l1.77-1.77" />
   </svg>
 );
 
 const IconMoon = () => (
-  <svg {...ico}>
+  <svg {...iconProps}>
     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
   </svg>
 );
 
 const IconLogout = () => (
-  <svg {...ico}>
+  <svg {...iconProps}>
     <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
     <path d="M16 17l5-5-5-5" />
     <path d="M21 12H9" />

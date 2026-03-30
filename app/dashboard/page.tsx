@@ -3,29 +3,10 @@
 /** Página principal del dashboard: resumen de proyectos y tareas según el rol. */
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
-import { getProjects, getTasks } from '@/services/api';
+import { getProjects, getTasks, getTasksByUser } from '@/services/api';
 import { Project, Task } from '@/types';
 import Link from 'next/link';
-
-const statusColors: Record<string, string> = {
-  planificacion: 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300',
-  en_progreso: 'bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300',
-  completado: 'bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300',
-  completada: 'bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300',
-  cancelado: 'bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300',
-  cancelada: 'bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300',
-  pendiente: 'bg-gray-100 text-gray-800 dark:bg-gray-600 dark:text-gray-200',
-};
-
-const statusLabel: Record<string, string> = {
-  planificacion: 'Planificación',
-  en_progreso: 'En Progreso',
-  completado: 'Completado',
-  completada: 'Completada',
-  cancelado: 'Cancelado',
-  cancelada: 'Cancelada',
-  pendiente: 'Pendiente',
-};
+import { STATUS_COLORS as statusColors, STATUS_LABELS as statusLabel } from '@/lib/constants';
 
 function StatCard({ label, value, color }: { label: string; value: number; color: string }) {
   return (
@@ -50,13 +31,8 @@ export default function DashboardPage() {
           setProjects(pRes.data);
           setTasks(tRes.data);
         } else if (user?.id) {
-          // Obtenemos todas las tareas y filtramos por asignado: json-server
-          // a veces interpreta ?assignedTo=2 como número y no coincide con "2"
-          const tRes = await getTasks();
-          const myTasks = (tRes.data || []).filter(
-            (t) => String(t.assignedTo) === String(user.id)
-          );
-          setTasks(myTasks);
+          const tRes = await getTasksByUser(user.id);
+          setTasks(tRes.data || []);
         }
       } finally {
         setIsLoading(false);

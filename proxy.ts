@@ -1,10 +1,10 @@
-/** Middleware: protege rutas del dashboard por cookie de rol (gerente/usuario). */
+/** Proxy: protege rutas del dashboard por cookie de rol (gerente/usuario). */
 import { NextRequest, NextResponse } from 'next/server';
 
 const GERENTE_ROUTES = ['/dashboard/projects', '/dashboard/tasks', '/dashboard/users'];
 const USUARIO_ROUTES = ['/dashboard/my-tasks'];
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const role = request.cookies.get('app_role')?.value;
 

@@ -1,27 +1,35 @@
-'use client';
+"use client";
 
 /** Envuelve rutas que requieren autenticación; redirige a login o dashboard según rol. */
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuth } from '@/context/AuthContext';
-import { Role } from '@/types';
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
+import { Role } from "@/types";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
   allowedRoles?: Role[];
 }
 
-export default function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) {
+export default function ProtectedRoute({
+  children,
+  allowedRoles,
+}: ProtectedRouteProps) {
   const { user, isLoading } = useAuth();
   const router = useRouter();
 
   // Redirige si no hay usuario (login) o si el rol no está permitido (dashboard).
   useEffect(() => {
     if (!isLoading && !user) {
-      router.replace('/login');
+      router.replace("/login");
     }
-    if (!isLoading && user && allowedRoles && !allowedRoles.includes(user.role)) {
-      router.replace('/dashboard');
+    if (
+      !isLoading &&
+      user &&
+      allowedRoles &&
+      !allowedRoles.includes(user.role)
+    ) {
+      router.replace("/dashboard");
     }
   }, [user, isLoading, router, allowedRoles]);
 

@@ -1,10 +1,64 @@
+/** Helpers de SweetAlert2 con estilo según tema claro/oscuro. */
 import Swal from 'sweetalert2';
 
-export function swalError(title: string, text: string) {
+/** Detecta tema oscuro y devuelve opciones de estilo para SweetAlert2. */
+export function getSwalTheme() {
+  const isDarkMode = typeof document !== 'undefined' && document.documentElement.classList.contains('dark');
+  return {
+    background: isDarkMode ? '#1f2937' : '#ffffff',
+    color: isDarkMode ? '#f3f4f6' : '#1f2937',
+    customClass: {
+      popup: isDarkMode ? 'border border-gray-700' : '',
+    },
+  };
+}
+
+/** Muestra un modal de éxito (se cierra solo si hay text). */
+export function swalSuccess(title: string, text?: string) {
   return Swal.fire({
-    icon: 'error',
     title,
     text,
-    confirmButtonText: 'Entendido',
+    icon: 'success',
+    timer: text ? 1800 : undefined,
+    showConfirmButton: !text,
+    ...getSwalTheme(),
   });
+}
+
+/** Muestra un modal de error. */
+export function swalError(title: string, text?: string) {
+  return Swal.fire({
+    title,
+    text,
+    icon: 'error',
+    confirmButtonText: 'Entendido',
+    ...getSwalTheme(),
+  });
+}
+
+/** Muestra un modal de advertencia. */
+export function swalWarning(title: string, text?: string) {
+  return Swal.fire({
+    title,
+    text,
+    icon: 'warning',
+    ...getSwalTheme(),
+  });
+}
+
+/** Muestra confirmación de borrado y devuelve true si el usuario confirma. */
+export async function swalConfirmDelete(title: string, text: string): Promise<boolean> {
+  const result = await Swal.fire({
+    title,
+    text,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, eliminar',
+    cancelButtonText: 'Cancelar',
+    confirmButtonColor: '#dc2626',
+    cancelButtonColor: '#6b7280',
+    reverseButtons: true,
+    ...getSwalTheme(),
+  });
+  return result.isConfirmed;
 }
